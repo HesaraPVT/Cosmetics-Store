@@ -46,9 +46,49 @@ export async function deleteProduct(req, res) {
         return;
     }
     try {
-        await Product.deleteOne({productId : req.params.productId}) // Delete the product with the specified productId from the database
+        await Product.deleteOne({productId : req.params.productId}); // Delete the product with the specified productId from the database
         res.json({message: "Product deleted successfully"});
     } catch (error) {
         res.status(500).json({message: "Error deleting product", error: error});
+    }
+}
+
+export async function updateProduct(req, res) {
+    if (!isAdmin(req)){
+        res.status(403).json({message: "Unauthorized Access! You are not authorized to update products"});
+        return;
+    }
+
+    const productId = req.params.productId;
+    const updatingData = req.body;
+
+    try {
+        await Product.updateOne({productId: productId}, updatingData); // Update the product with the specified productId in the database using the data provided in the request body
+        res.json({message: "Product updated successfully"});
+    } catch (error) {
+        res.status(500).json({message: "Error updating product", error: error});
+    }
+}
+
+export async function getProductById(req, res) { // get a product by its productId
+    const productId = req.params.productId;
+    
+    try {
+        const product = await Product.findOne({productId: productId}); // Fetch the product with the specified productId from the database
+        if (product == null) {
+            res.status(404).json({message: "Product not found"});
+            return;
+        }
+        if (product.isAvailable) {
+            res.json(product);
+        } else {
+            if (!isAdmin(req)) {
+                res.status(404).json({message: "Product is not available"});
+            } else {
+                res.json(product);
+            }
+        }
+    } catch (error) {
+        res.status(500).json({message: "Error fetching product", error: error});
     }
 }

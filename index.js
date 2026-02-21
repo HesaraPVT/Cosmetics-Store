@@ -5,6 +5,7 @@ import productRouter from './routers/productRouter.js'; // Import the product ro
 import userRouter from './routers/userRouter.js'; // Import the user router
 import jwt from 'jsonwebtoken';
 import e from 'express';
+import orderRouter from './routers/orderRouter.js'; // Import the order router
 
 const app = express();
 
@@ -38,6 +39,8 @@ mongoose.connect('mongodb+srv://admin:2003Hesara@cluster0.xmorvix.mongodb.net/?a
 app.use('/products', productRouter); // Use the product router for routes starting with /products
 
 app.use('/users', userRouter); // Use the user router for routes starting with /users
+
+app.use('/orders', orderRouter); // Use the order router for routes starting with /orders
 
 app.listen(3000, () => {
     console.log('Server is running on port 3000');
