@@ -5,11 +5,6 @@ import productRouter from './routers/productRouter.js'; // Import the product ro
 import userRouter from './routers/userRouter.js'; // Import the user router
 import orderRouter from './routers/orderRouter.js'; // Import the order router
 import jwt from 'jsonwebtoken';
-<<<<<<< HEAD:backend/index.js
-=======
-import e from 'express';
-import orderRouter from './routers/orderRouter.js'; // Import the order router
->>>>>>> aabace302b75706cef5f910c7da0666560155008:index.js
 
 const app = express();
 

@@ -27,22 +27,13 @@ const orderSchema = new mongoose.Schema({
         required: true,
         default: "pending"
     },
-<<<<<<< HEAD:backend/models/order.js
     total : {
         type: Number,
         required: true
     },
     labelledTotal : {
-        type: Number
-=======
-    labelledTotal : {
         type: Number,
         required: true
-    },
-    total : {
-        type: Number,
-        required: true
->>>>>>> aabace302b75706cef5f910c7da0666560155008:models/order.js
     },
     products : [{
         productInfo : {
@@ -55,11 +46,7 @@ const orderSchema = new mongoose.Schema({
                 required: true
             },
             altNames: {
-<<<<<<< HEAD:backend/models/order.js
-                type: [String]
-=======
                 type: [String],
->>>>>>> aabace302b75706cef5f910c7da0666560155008:models/order.js
             },
             description: {
                 type: String,
@@ -72,7 +59,6 @@ const orderSchema = new mongoose.Schema({
             price: {
                 type: Number,
                 required: true
-<<<<<<< HEAD:backend/models/order.js
             },
             stock: {
                 type: Number,
@@ -80,18 +66,12 @@ const orderSchema = new mongoose.Schema({
             },
             images: {
                 type: [String]
-=======
->>>>>>> aabace302b75706cef5f910c7da0666560155008:models/order.js
             }
         },
         quantity : {
             type: Number,
             required: true
-<<<<<<< HEAD:backend/models/order.js
         }
-=======
-        },
->>>>>>> aabace302b75706cef5f910c7da0666560155008:models/order.js
     }],
     Date : {
         type: Date,
@@ -99,12 +79,6 @@ const orderSchema = new mongoose.Schema({
     }
 });
 
-<<<<<<< HEAD:backend/models/order.js
 const Order = mongoose.model('orders', orderSchema);
 
 export default Order;
-=======
-const Order = mongoose.model('Orders', orderSchema);
-
-export default Order;
->>>>>>> aabace302b75706cef5f910c7da0666560155008:models/order.js

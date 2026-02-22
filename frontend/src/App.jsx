@@ -1,15 +1,27 @@
 import './App.css'
 import Header from './components/header.jsx'
 import ProductCard from './components/productCard.jsx'
+import HomePage from './pages/home.jsx'
+import LoginPage from './pages/login.jsx'
+import SignUpPage from './pages/signup.jsx'
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import AdminPage from './pages/adminPage.jsx';
 
 function App() {
 
-  return (
-    <>
-      <Header/>
-      <ProductCard name="Dove" description="soap" price="$9.99" image="https://portsunlightvillage.com/wp-content/uploads/2024/05/189A9012-Edit-scaled.jpg"/>
-      <ProductCard name="Nivea" description="lotion" price="$14.99" image="https://cdn.shopify.com/s/files/1/0649/1503/files/1080x1080_Posts_7__Cosmetic1_1_480x480.jpg?v=1686728837"/>
-    </>
+  return ( // /admin/* allows not only admin but also its sub routes like /admin/products, /admin/orders, etc. to be accessed by the AdminPage component. This is useful for creating a nested routing structure where the AdminPage component can serve as a layout or dashboard for various admin-related pages.
+    <BrowserRouter>
+    <div>
+      <Header />
+      <Routes>
+      <Route path="/" element={<HomePage />} />
+      <Route path="/login" element={<LoginPage />} />
+      <Route path="/signup" element={<SignUpPage />} />
+      <Route path="/admin/*" element={<AdminPage />} /> 
+      <Route path="/*" element={<h1 className="text-3xl font-bold mb-4">404 Not Found</h1>} />
+      </Routes>
+    </div>
+    </BrowserRouter>
   )
 }
 
