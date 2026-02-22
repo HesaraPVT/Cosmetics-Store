@@ -73,4 +73,8 @@ export async function createOrder(req, res) {
     } catch (error) {
         res.status(500).json({message: "Error creating order", error: error});
     }
+<<<<<<< HEAD:backend/controllers/orderController.js
 }
+=======
+}
+>>>>>>> aabace302b75706cef5f910c7da0666560155008:controllers/orderController.js

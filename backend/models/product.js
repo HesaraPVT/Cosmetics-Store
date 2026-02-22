@@ -38,7 +38,7 @@ const productSchema = mongoose.Schema( //schema for product collection
             default: true
         }
     }
-})
+);
 
 const Product = mongoose.model('Products', productSchema); //model for product collection
 
