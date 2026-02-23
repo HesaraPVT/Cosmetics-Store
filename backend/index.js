@@ -5,9 +5,11 @@ import productRouter from './routers/productRouter.js'; // Import the product ro
 import userRouter from './routers/userRouter.js'; // Import the user router
 import orderRouter from './routers/orderRouter.js'; // Import the order router
 import jwt from 'jsonwebtoken';
+import cors from 'cors';
 
 const app = express();
 
+app.use(cors()); // Enable CORS for all routes and you can input any specific origin in the cors() function if you want to restrict access to certain origins
 app.use(bodyParser.json()); 
 
 app.use((req, res, next) => { // Middleware to set CORS headers
@@ -35,15 +37,15 @@ mongoose.connect('mongodb+srv://admin:2003Hesara@cluster0.xmorvix.mongodb.net/?a
     console.log('Error connecting to MongoDB', error);
 }); 
 
-app.use('/products', productRouter); // Use the product router for routes starting with /products
+app.use('/api/products', productRouter); // Use the product router for routes starting with /products
 
-app.use('/users', userRouter); // Use the user router for routes starting with /users
+app.use('/api/users', userRouter); // Use the user router for routes starting with /users
 
-app.use('/orders', orderRouter); // Use the order router for routes starting with /orders
+app.use('/api/orders', orderRouter); // Use the order router for routes starting with /orders
 
 app.listen(3000, () => {
     console.log('Server is running on port 3000');
     }
 );
 
-// mongodb+srv://admin:123@cluster0.xmorvix.mongodb.net/?appName=Cluster0
+// mongodb+srv://admin:2003Hesara@cluster0.xmorvix.mongodb.net/?appName=Cluster0
