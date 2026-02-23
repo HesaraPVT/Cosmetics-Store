@@ -6,6 +6,9 @@ import userRouter from './routers/userRouter.js'; // Import the user router
 import orderRouter from './routers/orderRouter.js'; // Import the order router
 import jwt from 'jsonwebtoken';
 import cors from 'cors';
+import dotenv from 'dotenv';
+
+dotenv.config(); // Load environment variables from the .env file
 
 const app = express();
 
@@ -18,7 +21,7 @@ app.use((req, res, next) => { // Middleware to set CORS headers
         const token = tokenString.replace("Bearer ", ""); // Remove the "Bearer " prefix from the token string
         console.log(token); // Log the token string to the console
 
-        jwt.verify(token, "2003Hesara", (err, decoded) => { // Verify the token using the secret key
+        jwt.verify(token, process.env.JWT_SECRET, (err, decoded) => { // Verify the token using the secret key from .env
             if (decoded != null) {
                 req.user = decoded; // Attach the decoded user information to the request object
                 next(); // Call the next middleware function
@@ -31,7 +34,7 @@ app.use((req, res, next) => { // Middleware to set CORS headers
         next(); // If no token is provided, call the next middleware function
     }
 });
-mongoose.connect('mongodb+srv://admin:2003Hesara@cluster0.xmorvix.mongodb.net/?appName=Cluster0').then(() => {
+mongoose.connect(process.env.MONGODB_URL).then(() => { // process.env.MONGODB_URL is used to access the MongoDB connection string stored in the .env file, which allows for secure and flexible configuration of the database connection without hardcoding sensitive information in the codebase
     console.log('Connected to MongoDB');
 }).catch((error) => {
     console.log('Error connecting to MongoDB', error);
@@ -47,5 +50,3 @@ app.listen(3000, () => {
     console.log('Server is running on port 3000');
     }
 );
-
-// mongodb+srv://admin:2003Hesara@cluster0.xmorvix.mongodb.net/?appName=Cluster0

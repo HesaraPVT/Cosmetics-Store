@@ -1,18 +1,26 @@
 import { useState } from 'react';
 import axios from 'axios';
 import toast from 'react-hot-toast';
+import { useNavigate } from 'react-router-dom';
 
-export default function LoginPage() {
+export default function LoginPage() { // useState, useNavigate are hooks provided by React that allow us to manage state and navigate programmatically within our functional components, while axios is a popular library for making HTTP requests, and toast from react-hot-toast is used for displaying notifications to the user based on the success or failure of the login attempt
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const navigate = useNavigate(); // useNavigate is used to easily navigate to different routes programmatically after successful login, allowing for a smoother user experience without needing to manually change the URL or refresh the page
 
   const handleLogin = (e) => {
     e.preventDefault();
     console.log('Login attempt:', { email, password });
-    axios.post('http://localhost:3000/api/users/login', { email, password })
+    axios.post(import.meta.env.VITE_BACKEND_URL + '/api/users/login', { email, password }) // import.meta.env.VITE_BACKEND_URL is used to access the backend URL stored in the .env file, allowing for flexible configuration of the backend API endpoint without hardcoding it in the codebase
       .then(response => {
         toast.success('Login successful!');
         console.log('Login successful:', response.data);
+        localStorage.setItem('token', response.data.token); // Store the JWT token in local storage for future authenticated requests
+        if(response.data.role === "admin") {
+          navigate('/admin'); // Navigate to the admin page after successful login
+        } else {
+          navigate('/'); // Navigate to the home page for non-admin users
+        }
       })
       .catch(error => {
         toast.error('Login failed. Please check your credentials and try again.');
